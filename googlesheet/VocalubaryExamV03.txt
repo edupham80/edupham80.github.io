@@ -1,3 +1,9 @@
+// Bổ sung mã bài kiểm tra
+// Bổ sung lưu điểm và kết quả bài kiểm tra vào log
+//
+//
+//
+//
 // 📌 NHẬP ID FILE DỮ LIỆU GỐC Ở ĐÂY
 const DATA_FILE_ID = "1-FqLKbNVq7O7fQ1X08NwWu16BqOMpBV1mh5onBRqBcI"; // 🔥 Thay ID file của bạn vào đây
 
