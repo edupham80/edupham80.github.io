@@ -1,0 +1,87 @@
+// 📌 NHẬP ID FILE DỮ LIỆU GỐC Ở ĐÂY
+const DATA_FILE_ID = "1-FqLKbNVq7O7fQ1X08NwWu16BqOMpBV1mh5onBRqBcI"; // 🔥 Thay ID file của bạn vào đây
+
+
+// 📌 HÀM TẠO BÀI KIỂM TRA (CÓ CẬP NHẬT LẦN TẠO VÀ NGÀY)
+function taoBaiKiemTra() {
+  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+
+  // 🔹 Lấy dữ liệu từ file gốc
+  var fileGoc = SpreadsheetApp.openById(DATA_FILE_ID);
+  var sheetGoc = fileGoc.getSheetByName("DanhSach");
+
+  if (!sheetGoc) {
+    Browser.msgBox("Lỗi: Không tìm thấy sheet 'DanhSach' trong file gốc!");
+    return;
+  }
+
+  var data = sheetGoc.getDataRange().getValues();
+  if (data.length <= 2) {
+    Browser.msgBox("Danh sách từ vựng trống!");
+    return;
+  }
+
+  // 🔹 Cập nhật số lần tạo bài kiểm tra (Ô A1)
+  var soLanTao = sheetGoc.getRange("A1").getValue() || 0;
+  sheetGoc.getRange("A1").setValue(soLanTao + 1);
+
+  // 🔹 Cập nhật ngày tạo bài kiểm tra (Ô B1)
+  var ngayHienTai = new Date();
+  sheetGoc.getRange("B1").setValue(Utilities.formatDate(ngayHienTai, Session.getScriptTimeZone(), "yyyy-MM-dd HH:mm:ss"));
+
+  // 🔹 Yêu cầu số lượng từ
+  var soTu = Browser.inputBox("Nhập số lượng từ bạn muốn lấy:", Browser.Buttons.OK_CANCEL);
+  soTu = parseInt(soTu, 10);
+
+  if (isNaN(soTu) || soTu <= 0 || soTu >= data.length) {
+    Browser.msgBox("Số lượng từ không hợp lệ!");
+    return;
+  }
+
+  var tuVung = data.slice(2); // Loại bỏ 2 dòng đầu (tiêu đề và số lần tạo)
+
+  // 🔹 Sắp xếp danh sách từ theo số lần học (Cột C)
+  tuVung.sort((a, b) => (a[2] || 0) - (b[2] || 0));
+
+  // 🔹 Chọn một nửa danh sách từ ít xuất hiện nhất
+  var soTuItHoc = Math.ceil(tuVung.length / 2);
+  var tuVungItHoc = tuVung.slice(0, soTuItHoc);
+
+  // 🔹 Chọn ngẫu nhiên từ trong nhóm này
+  var tuNgauNhien = [];
+  var chiSoDaChon = [];
+
+  while (tuNgauNhien.length < soTu) {
+    var index = Math.floor(Math.random() * tuVungItHoc.length);
+    if (!chiSoDaChon.includes(index)) {
+      chiSoDaChon.push(index);
+      tuNgauNhien.push(tuVungItHoc[index]);
+    }
+  }
+
+  // 🔹 Cập nhật số lần xuất hiện (Cột C)
+  for (var i = 0; i < chiSoDaChon.length; i++) {
+    var rowIndex = data.indexOf(tuNgauNhien[i]) + 2;
+    var currentCount = sheetGoc.getRange(rowIndex + 1, 3).getValue() || 0;
+    sheetGoc.getRange(rowIndex + 1, 3).setValue(currentCount + 1);
+  }
+
+  // 🔹 Xóa sheet cũ nếu có
+  var sheetTuVung = spreadsheet.getSheetByName("TuVungOnTap");
+  if (sheetTuVung) spreadsheet.deleteSheet(sheetTuVung);
+
+  var sheetKiemTra = spreadsheet.getSheetByName("BaiKiemTra");
+  if (sheetKiemTra) spreadsheet.deleteSheet(sheetKiemTra);
+
+  // 🔹 Tạo sheet "TuVungOnTap"
+  sheetTuVung = spreadsheet.insertSheet("TuVungOnTap");
+  sheetTuVung.appendRow(["Tiếng Anh", "Tiếng Việt"]);
+  tuNgauNhien.forEach(row => sheetTuVung.appendRow([row[0], row[1]]));
+
+  // 🔹 Tạo sheet "BaiKiemTra"
+  sheetKiemTra = spreadsheet.insertSheet("BaiKiemTra");
+  sheetKiemTra.appendRow(["Tiếng Việt", "Tiếng Anh"]);
+  tuNgauNhien.forEach(row => sheetKiemTra.appendRow([row[1], ""]));
+
+  Browser.msgBox("Bài kiểm tra đã được tạo! Mở sheet 'BaiKiemTra' để làm bài.");
+}
