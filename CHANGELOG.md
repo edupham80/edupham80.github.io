@@ -1,250 +1,419 @@
-## Unreleased version
-- BREAKING CHANGE: Allow changing the order of the social network links that appear in the footer (#1152)
-- BREAKING CHANGE: `google-scholar` social network link no longer requires the prefix `citations?user=`; if you previously set this parameter, it needs to be updated (#1189)
-- Added `mathjax` YAML parameter to allow support for MathJax, used to write LaTeX expressions (#195)
-- Added explicit support for favicons, you only need to add a `favicon.ico` file to the root directory
-- The footer of a page always sticks to the bottom, even on short pages (#576)
-- Added `author` YAML parameter to allow specifying the author(s) of a post (#1220)
-- Fixed bug where search results broke if a post title had a backslash (#1279)
-- Fixed bug where hovering over search results showed the text "{desc}" (#1156)
-- Added social network links for GitLab, Bluesky, Whatsapp, Untappd, Strava (#1168, #1218, #1299, #1307, #1443)
-- Support reddit social network link to either be a subreddit or a user (#1371)
-- Use CSS variables (#661)
-- Added instructions and example on how to fix image links in project sites (#1171)
-- Pagination buttons: use nicer arrows, and don't show text on small screens (#1221)
-- Updated Yelp URL format - if you previously used the `yelp` social network config parameter, you might need to update the config value (#1259)
-- Added `title-on-all-pages` config setting, that adds the website title to all page titles (#1272)
-- Change Twitter icon to X (#1193)
-- Upgraded font-awesome to 6.5.2 (#1330)
-- Fixed tables not having a scroll bar when wider than the page (usually happened on mobile) (#1452)
-- Add author name to RSS feed (#1442)
-
-## v6.0.1 (2023-06-08)
-
-This version has been in the works for a few years. It includes several new features that were highly requested, numerous bug fixes, new documentation, and aggresively encourages migrating from the old Google Universal Analytics to the new Analytics 4.
+# Changelog
+Decap CMS is a collection of npm packages with their own versions and changelogs, each listed
+below. The legacy pre-2.0 changelog is below as well.
 
-#### Breaking changes
-
-- As of July 2023, Google Universal Analytics is going away and being replaced by Google Analytics 4. Beautiful Jekyll sites that still use the old analytics tag will show a warning to encourage them to move to Analytics 4 (#1096).
-- More control over RSS feed sharing: previously, an RSS feed was *always* generated, and if the config setting `rss-description` was set then there was an RSS icon in the footer. Now, an RSS feed is only generated when the config setting `rss-description` exists, and an RSS footer icon is only shown if `rss: true` is set in the `social-network-links` config settings.
-
-#### New parameters and settings
-
-- Added `navbar-var-length` config setting that allows the navigation menu to be the same length as the longest sub-menu, so that long words in the submenu are not cut off (#765) 
-- Added `post_search` config setting that creates a Search button in the navbar (#770)
-- Added `edit_page_button` config setting that adds a "Edit page" button to the footer (to edit the current page on GitHub) (#1004)
-- Added `footer-hover-col` config setting to customize the hover colour of links in the footer (#848)
-
-#### New features and improvements
-
-- Made the home page feed more accessible for screen readers (#950)
-- Added support for giscus comments (#886) and CommentBox (#960)
-- Added support for Cloudflare Analytics (#797)
-- Added Reddit in share options of posts (#815)
-
-#### Bug fixes
-
-- Fixed page titles, subtitles, and excerpts rendering correctly when there are special characeters in them (#856) 
-- Fixed bug where navbar secondary level dropdown items didn't inherit the same colour as the primary navbar links
-- Fixed bug where the navbar "burger" collapsed button didn't always revert back to a light colour
-- Fixed bug where using an image as a navbar title did not render in GitHub Project pages that did not have a custom domain
-- Fixed bug where image thumbnails on the feed page were always forced into a square rather than maintaining a proper image aspect ratio
-- Fixed bug where special characters in the title led to broken share tags (#744)
-- Fixed bug where staticman didn't work jQuery slim version is used (#766)
-- Fixed very long strings to wrap around the next line rather than go off-screen (#787)
-
-#### Small changes
-
-- Updated staticman from using v2 (public servers) to v3 (private servers) due to the public servers becoming obsolete (#775)
-- Added social network links for Patreon, Medium, Itch.io, Discord, Kaggle, Hackerrank (#783, #788, #907, #961, #978)
-- Slightly reworked margins and position for avatar image to resolve an alignment issue on Safari
-- Changed the width at which the navbar collapses to a higher threshold because most modern non-mobile browsers are >1000px
-
-
-## v5.0.0 (2020-09-15)
-
-One of the major changes in this version is that a lot of time was spent on rethinking the entire SEO and social media sharing model (how a page looks on eg. Google, Twitter, Facebok). It was redesigned to be more simple and customizable. The new documentation has a section dedicated to SEO and social media sharing of a page. Unfortunately some changes that are not backwards-compatible had to be made.
-
-#### Breaking changes
-
-- Renamed `description` YAML parameter to `share-description` to be more clear
-- Renamed `description` config setting to `rss-description` since it was only used in RSS (the FAQ explains the difference between YAML parameters and config settings if you're confused)
-- Removed YAML parameter `use-site-title` (you can now specify the exact title using `share-title`)
-- Removed undocumented YAML parameters `meta-title` and `meta-description`
-- Removed `link-tags` config setting because it wasn't necessary. If you use tags, there will now always be a tags page created; if you don't use tags there won't be a tags page.
-- The YAML parameter `show-avatar` is now true by default. This has always been the case for GitHub Pages users, but not for `remote_theme` users. For consistency, it's now the default for everyone. (#715)
-
-#### New parameters and settings
-
-- Added `full-width` YAML parameter to allow having full-width pages
-- Added `feed_show_excerpt` config setting to show/hide the post excerpts on the feed page
-- Added `feed_show_tags` config setting to show/hide the list of tags on post previews on the feed page
-- Added `share-title` YAML parameter to give control over the search engine/social media title
-- Added `last-updated` YAML parameter to show a "Last Updated on" date for blog posts
-- Added `before-content` and `after-content` YAML parameters that allow you to add some common HTML before the main content of a page (below the title) or after the main content (above the footer). Works in a similar way to `footer-extra`.
-- Added `head-extra` YAML parameter which is similar to `footer-extra` but is used to include custom HTML code in a page's `<head>` tag
-- Added `site-js` config setting to provide JavaScript files that are used on all pages in the site
-
-#### New features and improvements
-
-- Improved the `footer-extra` YAML parameter to support multiple files instead of only a single file
-- Added automatic navbar color detection (#702)
-- When `nav-short` is turned on, the avatar will also be shorter
-- Changed navbar and footer background colour to be slightly darker, for better contrast with the default white page background for accessibility reasons
-- Changed the behaviour of `site-css` to include site-wide CSS file **before** instead of after page-specific files
-- Renamed internal css/js files from "main" to "beautifuljekyll" to make it easier for users to troubleshoot
-- Added alt text to all images for better accessibility
-- Made thumbnail images square instead of circles, as users reported that circles cut off important parts of images
-
-#### Bug fixes
+## Core and distributions
+- [decap-cms](https://github.com/decaporg/decap-cms/blob/main/packages/decap-cms/CHANGELOG.md)
+- [decap-cms-core](https://github.com/decaporg/decap-cms/blob/main/packages/decap-cms-core/CHANGELOG.md)
 
-- Fixed rendering issues with `nav-short` parameter that caused the body of the page to start too low
-- Fixed some CSS styles that broke during the bootstrap 4 migration (#716)
+## Shared libraries
+- [decap-cms-lib-auth](https://github.com/decaporg/decap-cms/blob/main/packages/decap-cms-lib-auth/CHANGELOG.md)
+- [decap-cms-lib-util](https://github.com/decaporg/decap-cms/blob/main/packages/decap-cms-lib-util/CHANGELOG.md)
+- [decap-cms-ui-default](https://github.com/decaporg/decap-cms/blob/main/packages/decap-cms-ui-default/CHANGELOG.md)
 
-#### Library upgrades
+## Backends
+- [decap-cms-backend-bitbucket](https://github.com/decaporg/decap-cms/blob/main/packages/decap-cms-backend-bitbucket/CHANGELOG.md)
+- [decap-cms-backend-git-gateway](https://github.com/decaporg/decap-cms/blob/main/packages/decap-cms-backend-git-gateway/CHANGELOG.md)
+- [decap-cms-backend-github](https://github.com/decaporg/decap-cms/blob/main/packages/decap-cms-backend-github/CHANGELOG.md)
+- [decap-cms-backend-gitlab](https://github.com/decaporg/decap-cms/blob/main/packages/decap-cms-backend-gitlab/CHANGELOG.md)
+- [decap-cms-backend-test](https://github.com/decaporg/decap-cms/blob/main/packages/decap-cms-backend-test/CHANGELOG.md)
 
-- Upgraded kramdown to version 2.3.0 to fix security issues
-- Upgraded jQuery to version 3.5.1 to fix a couple security vulnerabilities with the previous version
+## Editor Components
+- [decap-cms-editor-component-image](https://github.com/decaporg/decap-cms/blob/main/packages/decap-cms-editor-component-image/CHANGELOG.md)
 
-## v4.1.0 (2020-08-08)
+## Widgets
+- [decap-cms-widget-boolean](https://github.com/decaporg/decap-cms/blob/main/packages/decap-cms-widget-boolean/CHANGELOG.md)
+- [decap-cms-widget-date](https://github.com/decaporg/decap-cms/blob/main/packages/decap-cms-widget-date/CHANGELOG.md)
+- [decap-cms-widget-datetime](https://github.com/decaporg/decap-cms/blob/main/packages/decap-cms-widget-datetime/CHANGELOG.md)
+- [decap-cms-widget-file](https://github.com/decaporg/decap-cms/blob/main/packages/decap-cms-widget-file/CHANGELOG.md)
+- [decap-cms-widget-image](https://github.com/decaporg/decap-cms/blob/main/packages/decap-cms-widget-image/CHANGELOG.md)
+- [decap-cms-widget-list](https://github.com/decaporg/decap-cms/blob/main/packages/decap-cms-widget-list/CHANGELOG.md)
+- [decap-cms-widget-markdown](https://github.com/decaporg/decap-cms/blob/main/packages/decap-cms-widget-markdown/CHANGELOG.md)
+- [decap-cms-widget-number](https://github.com/decaporg/decap-cms/blob/main/packages/decap-cms-widget-number/CHANGELOG.md)
+- [decap-cms-widget-object](https://github.com/decaporg/decap-cms/blob/main/packages/decap-cms-widget-object/CHANGELOG.md)
+- [decap-cms-widget-relation](https://github.com/decaporg/decap-cms/blob/main/packages/decap-cms-widget-relation/CHANGELOG.md)
+- [decap-cms-widget-select](https://github.com/decaporg/decap-cms/blob/main/packages/decap-cms-widget-select/CHANGELOG.md)
+- [decap-cms-widget-string](https://github.com/decaporg/decap-cms/blob/main/packages/decap-cms-widget-string/CHANGELOG.md)
+- [decap-cms-widget-text](https://github.com/decaporg/decap-cms/blob/main/packages/decap-cms-widget-text/CHANGELOG.md)
 
-- Added Open Graph `site_name` meta field to pages automatically
-- Added `text-col` config setting  for main text color (#694)
-- Added `keywords` config setting to set the meta keywords on all pages (for SEO purposes) (#691)
-- Added `mobile-theme-col` config setting to allow a mobile theme colour (#692)
-- Added `site-css` config setting in the config file to provide CSS files that are used on all pages in the site (#695)
-- Added YAML parameter `description`: creates the meta description on a page, intended to provide a brief description of the page for search engines and when the page is shared (#690)
+## Legacy Changelog
 
-## v4.0.1 (2020-07-13)
+## [Unreleased] ([demo](https://cms-demo.netlify.com/))
+<details>
+  <summary>
+    Changes that have landed in main but are not yet released.
+    Click to see more.
+  </summary>
 
-- Fixed staticman comments UI that was broken since the migration to bootstrap 4
+  ## v2
+  * (possibly breaking): return date object from date/datetime widgets if no format set ([@erquhart](https://github.com/erquhart) in [#1296](https://github.com/decaporg/decap-cms/pull/1296))
+  * check for title/slug field on config load ([@tech4him1](https://github.com/tech4him1) in [#1203](https://github.com/decaporg/decap-cms/pull/1203))
+</details>
 
-## v4.0.0 (2020-07-12)
+## 1.9.4 (July 21, 2018) ([demo](https://1-9-4--cms-demo.netlify.com))
+Fix multipart extension support for GitLab
 
-- **BREAKING CHANGE** Replace `image` YAML parameter with `thumbnail-img` to be more clear
-- **MAJOR BEHAVIOUR CHANGE** Don't use the thumbnail as the avatar image
-- Cover image will automatically be used as thumbnail if none is provided
-- Image to share on social media will use the cover image or thumbnail if none is provided
-- All images (social media share, thumbnail, cover) can use either relative or absoluate paths.
-- Fixed issue where if a dropdown menu was the last item in the menu bar, it did not have a proper margin on the right
-- Added social network links: Mastodon (#646), Google Scholar, ORCID (#670)
-- Added support for sharing pages on new social network: VK (#657)
-- Use Open Graph type 'article' for blog posts (#669)
-- Use Twitter's large sumary card (large image) when there is a cover image, thumbnail image, or share image specified (#668)
-- Made post images in the feed page smaller on smaller devices
-- Fixed jQuery version in staticman (#671)
+## Bug Fixes
+* Support extensions with multiple parts for GitLab ([@Nic128](https://github.com/Nic128) in [#1478](https://github.com/decaporg/decap-cms/pull/1478))
 
-## v3.0.0 (2020-05-07)
 
-- **BREAKING CHANGE** Upgraded from Bootstrap 3.3.2 to 4.4.1. This involved a major rewrite of most components. This shouldn't affect any users unless you have custom HTML/CSS code which the new Bootstrap could have broken.
-- **BREAKING CHANGE** Renamed `bigimg` YAML parameter to `cover-img`
-- **BREAKING CHANGE** Removed `googlefonts` YAML parameter since googlefonts are just CSS so they can be loaded via `ext-css`
-- **BREAKING CHANGE** Upgraded from jQuery 1.11.2 to 3.4.2. This should not affect most people
-- Added `navbar-border-col` setting in the config file
-- Added accessibility features where possible
-- Made the theme completely responsive by rewriting all CSS to use 'rem' instead of 'px'
-- Rewrote and simplified some JavaScript code to use CSS or Bootstrap alternatives that weren't available in 2015
-- Removed most of the sample posts so that users only have two sample posts to learn from
-- Improvements to the README instructions
+## 1.9.3 (July 3, 2018) ([demo](https://1-9-3--cms-demo.netlify.com))
+Fix numbers in TOML output
 
-## v2.3.0 (2020-04-29)
+## Bug Fixes
+* fix int value output in TOML format file (@slathrop in #1458)
 
-- Added YAML parameter `footer-extra` for including custom content in the footer
-- Fixed issue: linking to a specific part of a page resulted in scrolling too far (#69)
-- Added YAML parameter `nav-short` to have navbar permanently collapsed
-- Added social network link: Calendly
-- Fixed bug where RSS link in footer was showing even when turned off
 
-## v2.2.0 (2020-04-27)
+## 1.9.2 (June 15, 2018) ([demo](https://1-9-2--cms-demo.netlify.com))
+Fix test repo crash
 
-- Added social network link: Telegram (#625) (thanks @mashed-potatoes)
-- Moved the demo site to an independent URL: https://beautifuljekyll.com
-- Major documentation overhaul and cleanup of old files
-- Fixed a few bugs from the remote_theme migration
+## Bug Fixes
+* fix test-repo crash on non-existent folder ([@tech4him1](https://github.com/tech4him1) in [#1444](https://github.com/decaporg/decap-cms/pull/1444))
 
-## v2.0.0 (2020-04-26)
 
-- Beautiful-Jekyll v2.0.0 available as an official Ruby gem
-- Beautifull-Jekyll now supports the `remote_theme` config (#339) (thanks @gpotter2 and @skalee)
-- Consolidated the demo site, the ruby gem, and the master branch into one
-- Added a `home` layout and used it in the index page
-- Added readtime support for the post header (#622) (thanks @MutMatt and @rubyreads)
-- Removed the dependency on `_data` folder since it doesn't get copied when using `remote_theme` (#614)
-- Added support for configuring lang attribute on `html` tag (#608) (thanks @skalee)
-- Added ability to disable round logo (thanks @gpotter2)
-- Added support for Utterances comments (#596) (thanks @colynn)
-- Removed 'just-comments' as it's getting killed at the end of the year
-- Upgraded font-awesome to 5.12.1 (#587) (thanks @cketti)
+## 1.9.1 (June 14, 2018) ([demo](https://1-9-1--cms-demo.netlify.com))
+Fix GitLab Implicit OAuth
 
-## Prior to 2020
+## Bug Fixes
+* fix GitLab Implicit OAuth ([@tech4him1](https://github.com/tech4him1) in [#1439](https://github.com/decaporg/decap-cms/pull/1439))
 
-**2018-12-24** Add support for Staticman comments (#440) (thanks @VincentTam)
 
-**2018-10-19** Move Google Analytics to the head (#419) (thanks @jpvicari)
+## 1.9.0 (June 12, 2018) ([demo](https://1-9-0--cms-demo.netlify.com))
+GitLab support is here!!! 🎉🎉🎉
 
-**2018-06-08** Add support for Facebook comments (#350) (thanks @npes87184)
+### Features
+* add GitLab backend with Cursor API ([@Benaiah](https://github.com/Benaiah) in [#1343](https://github.com/decaporg/decap-cms/pull/1343))
 
-**2018-02-22** Automatically generate sitemap (#323) (thanks @JosemyDuarte)
+## Bug Fixes
+* fix workflow top panel styling ([@erquhart](https://github.com/erquhart) in [#1398](https://github.com/decaporg/decap-cms/pull/1398))
+* only use `label_singular` when one item is rendered in List widget ([@robertkarlsson](https://github.com/robertkarlsson) in [#1422](https://github.com/decaporg/decap-cms/pull/1422))
+* fix hidden widgets being rendered in editor components ([@robertkarlsson](https://github.com/robertkarlsson) in [#1414](https://github.com/decaporg/decap-cms/pull/1414))
 
-**2018-01-18** Add clickable tags to each post and a tags index page, works for GitHub sites (#307) (thanks @OCram85)
 
-**2018-01-14** Redo Dockerfile (#302) (thanks @jennydaman)
+## 1.8.4 (May 25, 2018) ([demo](https://1-8-4--cms-demo.netlify.com))
+Fix markdown widget styling.
 
-**2018-01-06** More color personalization options (#297 and #299) (thanks @jennydaman)
+### Bug Fixes
+  * fix markdown widget styling ([@erquhart](https://github.com/erquhart) in [#1384](https://github.com/decaporg/decap-cms/pull/1384))
 
-**2018-01-05** Abstract the social networks logic (thanks @OCram85)
 
-**2018-01-03** Avatar image no longer causes a ghost click (thanks @alefi87)
+## 1.8.3 (May 25, 2018) ([demo](https://1-8-3--cms-demo.netlify.com/))
+Update dependencies.
 
-**2017-10-16** Add GitHub buttons to posts (#265) (thanks @yonicd)
 
-**2017-09-04** Ability to change colour/image of navbar/footer/body
+## 1.8.2 (May 24, 2018) ([demo](https://1-8-2--cms-demo.netlify.com/))
+Fix failure to save/publish.
 
-**2017-08-17** Add support for notification, error, and warning boxes in markdown (#227) (thanks @OCram85)
+### Bug Fixes
+  * fix save/publish failure, revert overwrite prevention feature (@erquhart)
 
-**2017-08-12** Add social buttons for twitch, yelp, and steam (#234) (thanks @TheRealBenForce)
 
-**2017-03-30** Make the footer contact links friendly for screen readers (thanks @eugenius1)
+## 1.8.1 (May 23, 2018) ([demo](https://1-8-1--cms-demo.netlify.com/))
+Allow upload of files larger than 1MB to GitHub, prevent unintentional file overwrites.
 
-**2017-03-30** Started a CHANGELOG file (thanks @eugenius1)
+### Bug Fixes
+* prevent overwriting when generated slug matches an existing file ([@brianlmacdonald](https://github.com/brianlmacdonald) in [#1239](https://github.com/decaporg/decap-cms/pull/1239))
+* fix large files failing to load ([@tech4him1](https://github.com/tech4him1) in [#1224](https://github.com/decaporg/decap-cms/pull/1224))
 
-**2017-01-28** Add Subresource Integrity (SRI) support (#164) (thanks @tony-ho)
+### Beta Features
+* enable custom commit message templates ([@delucis](https://github.com/delucis) in [#1359](https://github.com/decaporg/decap-cms/pull/1359))
 
-**2017-01-09** Add Google Tag Manager Integration (#157) (thanks @csarigoz)
 
-**2017-01-06** Add options to configure HTML document title (#154) (thanks @tony-ho)
+## 1.8.0 (May 16, 2018) ([demo](https://1-8-0--cms-demo.netlify.com/))
+Customizable relation widget display fields, squash merges for editorial workflow, perf
+improvements.
 
-**2016-12-25** Allow dynamic images on each blog post (#143) (thanks @bbritten)
+### Features
+* support `displayFields` config property for the relation widget ([@zurawiki](https://github.com/zurawiki) in [#1303](https://github.com/decaporg/decap-cms/pull/1303))
 
-**2016-12-15** Support `title-img` config param to have image in the navbar instead of text
+### Improvements
+* prevent login for `git-gateway` backend when Git Gateway is not enabled for Netlify site ([@tech4him1](https://github.com/tech4him1) in [#1295](https://github.com/decaporg/decap-cms/pull/1295))
 
-**2016-12-08** Add support for phone numbers in footer; fix #136
+### Performance
+* use `cloneElement` when possible for editor preview pane widgets ([@danielmahon](https://github.com/danielmahon) in [#1248](https://github.com/decaporg/decap-cms/pull/1248))
+* upgrade to Webpack 4 ([@tech4him1](https://github.com/tech4him1) in [#1214](https://github.com/decaporg/decap-cms/pull/1214))
 
-**2016-12-06** Update gemfile (#134) (thanks @stephentuso)
+### Beta Features
+* support `squash_merges` config option for GitHub backend ([@delucis](https://github.com/delucis) in [#1330](https://github.com/decaporg/decap-cms/pull/1330))
 
-**2016-10-09** Add Docker deployment (#114) (thanks @mangar)
 
-**2016-08-06** Add social share buttons for posts (thanks @rtlee9)
+## 1.7.0 (April 24, 2018) ([demo](https://1-7-0--cms-demo.netlify.com/))
+Allow custom auth endpoint, bug fixes.
 
-**2016-07-29** Add CSS styling to code chunks
+### Features
+* allow custom auth endpoint ([@erquhart](https://github.com/erquhart) in [#1294](https://github.com/decaporg/decap-cms/pull/1294))
 
-**2016-07-27** Add clickable tags that lead to a tag page (doesn't work for GitHub hosted sites) (thanks @epwalsh)
+### Improvements
+* skip validation of optional fields when empty (@Dammmien in #1237)
 
-**2016-07-21** Add support for twitter cards (sharing on Twitter will be better); fixes #70
+### Bug Fixes
+* fix GitHub auth button icon alignment (@erquhart in #1299)
+* fix Git Gateway login hang (@ekoeryanto in #1240)
 
-**2016-03-18** Support full-width images in page headers; fixes #37
 
-**2016-03-18** Support menus in navigation bar
+## 1.6.0 (April 19, 2018) ([demo](https://1-6-0--cms-demo.netlify.com/))
+Markdown toolbar customization, manual date widget entry, bug fixes.
 
-**2016-02-07** Avatar is now conditional (thanks @hristoyankov)
+### Features
+* Allow markdown editor toolbar customization ([@Dammmien](https://github.com/Dammmien) in [#1236](https://github.com/decaporg/decap-cms/pull/1236))
+* Allow login screen to be skipped for test repo backend ([@erquhart](https://github.com/erquhart) in [#1291](https://github.com/decaporg/decap-cms/pull/1291))
 
-**2016-02-02** Migrate (forced to...) to jekyll 3
+### Bug Fixes
+* Fix button/icon alignment on Safari 10 ([@maciejmatu](https://github.com/maciejmatu) in [#1227](https://github.com/decaporg/decap-cms/pull/1227))
+* Allow typing in date widget ([@Dammmien](https://github.com/Dammmien) in [#1247](https://github.com/decaporg/decap-cms/pull/1247))
 
-**2016-01-22** Make sure not to include JQuery twice, fixes #29
 
-**2015-11-19** Support external links in navigation bar; fixes #3
+## 1.5.0 (April 11, 2018) ([demo](https://1-5-0--cms-demo.netlify.com/))
+New time based slug placeholders, set config.yml URL with <link>.
 
-... Many small changes because the site was in its infancy
+### Features
+* Add hour, minute, and second slug fields ([@terrierscript](https://github.com/terrierscript) in [#1207](https://github.com/decaporg/decap-cms/pull/1207))
+* Allow setting config URL with <link> ([@brianlmacdonald](https://github.com/brianlmacdonald) in [#1146](https://github.com/decaporg/decap-cms/pull/1146))
 
-**2015-03-12** Beautiful Jekyll version 0.0000001 is released!
+### Bug Fixes
+* Fix broken new media uploads for Git Gateway ([@tech4him1](https://github.com/tech4him1) in [#1221](https://github.com/decaporg/decap-cms/pull/1221))
 
+### Dev Experience
+* Enable editorial workflow for test backend ([@erquhart](https://github.com/erquhart) in [#1225](https://github.com/decaporg/decap-cms/pull/1225))
+
+
+## 1.4.0 (March 29, 2018) ([demo](https://1-4-0--cms-demo.netlify.com/))
+Filename creation can now be customized to exclude Unicode! Also, check out the new Beta Features! 💥
+
+### Features
+* Add option to strip Unicode from entry filenames ([@tech4him1](https://github.com/tech4him1) in [#1135](https://github.com/decaporg/decap-cms/pull/1135))
+
+### Improvements
+* Hide "create new" button for single files ([@tech4him1](https://github.com/tech4him1) in [#1200](https://github.com/decaporg/decap-cms/pull/1200))
+* Filter editorial workflow entries by PR base branch ([@erquhart](https://github.com/erquhart) in [#1155](https://github.com/decaporg/decap-cms/pull/1155))
+
+### Bug Fixes
+* Allow list widget "add" button to be disabled ([@gazebosx3](https://github.com/gazebosx3) in [#1102](https://github.com/decaporg/decap-cms/pull/1102))
+* Fix broken thumbnail when uploading an image to a private repository ([@Quicksaver](https://github.com/Quicksaver) in [#994](https://github.com/decaporg/decap-cms/pull/994))
+* Get default value from each widget rather than setting all to null ([@MichaelRomani](https://github.com/MichaelRomani) in [#1126](https://github.com/decaporg/decap-cms/pull/1126))
+* Fix editor validation notifications for editorial workflow ([@erquhart](https://github.com/erquhart) in [#1204](https://github.com/decaporg/decap-cms/pull/1204))
+* Prevent Git Gateway users with invalid tokens from logging in ([@tech4him1](https://github.com/tech4him1) in [#1209](https://github.com/decaporg/decap-cms/pull/1209))
+* Fix relation list preview ([@Quicksaver](https://github.com/Quicksaver) in [#1199](https://github.com/decaporg/decap-cms/pull/1199))
+* Fix missing config file handling ([@talves](https://github.com/talves) in [#1182](https://github.com/decaporg/decap-cms/pull/1182))
+* Fix initially blank date fields ([@tech4him1](https://github.com/tech4him1) in [#1210](https://github.com/decaporg/decap-cms/pull/1210))
+
+### Beta Features
+* Accept CSS strings in `registerPreviewStyle` ([@erquhart](https://github.com/erquhart) in [#1162](https://github.com/decaporg/decap-cms/pull/1162))
+* Change manual init API to use the same bundle as auto init ([@talves](https://github.com/talves) and @erquhart in [#1173](https://github.com/decaporg/decap-cms/pull/1173))
+
+### 4 tha devz
+* Ship source code to npm ([@tech4him1](https://github.com/tech4him1) in [#1095](https://github.com/decaporg/decap-cms/pull/1095))
+
+
+## 1.3.5 (March 6, 2018) ([demo](https://1-3-5--cms-demo.netlify.com/))
+Fixes styling issues
+
+* Revert lockfile update due to breaking changes in css processing deps ([@erquhart](https://github.com/erquhart))
+
+
+## 1.3.4 (March 6, 2018) ([demo](https://1-3-4--cms-demo.netlify.com/))
+Fixes editorial workflow entry failure
+
+* Fix editorial workflow entries not loading ([@erquhart](https://github.com/erquhart))
+
+
+## 1.3.3 (March 6, 2018) ([demo](https://1-3-3--cms-demo.netlify.com/))
+Fixes load failure
+
+* Fix bugs introduced by manual initialization ([@erquhart](https://github.com/erquhart) in [#1157](https://github.com/decaporg/decap-cms/pull/1157))
+
+
+## 1.3.2 (March 6, 2018) ([demo](https://1-3-2--cms-demo.netlify.com/))
+Fixes date widget default format, collection load failure when entry fails
+
+* Fix date widget default format ([@erquhart](https://github.com/erquhart) in [#1143](https://github.com/decaporg/decap-cms/pull/1143))
+* Fix collection failure when individual entries fail to load ([@tech4him1](https://github.com/tech4him1) in [#1093](https://github.com/decaporg/decap-cms/pull/1093))
+
+### Beta Features
+* Allow manual initialization and config injection ([@erquhart](https://github.com/erquhart) in [#1149](https://github.com/decaporg/decap-cms/pull/1149))
+
+
+## 1.3.1 (March 3, 2018) ([demo](https://1-3-1--cms-demo.netlify.com/))
+Fixes editorial workflow failure for unknown collections.
+
+* Report editorial workflow load errors, ignore entries with unknown collections ([@erquhart](https://github.com/erquhart) in [#1153](https://github.com/decaporg/decap-cms/pull/1153))
+
+
+## 1.3.0 (February 27, 2018) ([demo](https://1-3-0--cms-demo.netlify.com/))
+Multi-part extensions, e.g. "en.md", a11y improvements in the editor, and bugfixes.
+
+* Ensure unique id for each editor field ([@xifengjin88](https://github.com/xifengjin88) in [#1087](https://github.com/decaporg/decap-cms/pull/1087))
+* Fix lists crashing when first value is not a string ([@tech4him1](https://github.com/tech4him1) in [#1115](https://github.com/decaporg/decap-cms/pull/1115))
+* Support extensions with multiple parts (i.e. `en.md`) ([@tech4him1](https://github.com/tech4him1) in [#1123](https://github.com/decaporg/decap-cms/pull/1123))
+* Fix lost unsaved changes when updating status or publishing from editor ([@erquhart](https://github.com/erquhart) in [#987](https://github.com/decaporg/decap-cms/pull/987))
+
+
+## 1.2.2 (February 21, 2018) ([demo](https://1-2-2--cms-demo.netlify.com/))
+Fixes ES5 transpiling.
+
+* Remove babel-preset-env, fix ES5 transpiling ([@erquhart](https://github.com/erquhart) in [#1127](https://github.com/decaporg/decap-cms/pull/1127))
+
+
+## 1.2.1 (February 21, 2018) ([demo](https://1-2-1--cms-demo.netlify.com/))
+Allows `label_singular` config for collections and lists and distinct frontmatter delimiters.
+
+* Accept `label_singular` in collection config ([@peduarte](https://github.com/peduarte) in [#1086](https://github.com/decaporg/decap-cms/pull/1086))
+* Transpile down to ES5 to support older tooling eg. Webpack 1 ([@tech4him1](https://github.com/tech4him1) in [#1107](https://github.com/decaporg/decap-cms/pull/1107))
+* Allow different opening and closing frontmatter delimiters ([@tech4him1](https://github.com/tech4him1) in [#1094](https://github.com/decaporg/decap-cms/pull/1094))
+
+
+## 1.2.0 (February 13, 2018) ([demo](https://1-2-0--cms-demo.netlify.com/))
+Adds support for multiple frontmatter formats and custom delimiters, UI improvements.
+
+* Use babel-preset-env to transpile for supported environments only ([@tech4him1](https://github.com/tech4him1) in [#765](https://github.com/decaporg/decap-cms/pull/765))
+* Change direction of collapsed editor widget arrow indicators ([@Doocey](https://github.com/Doocey) in [#1059](https://github.com/decaporg/decap-cms/pull/1059))
+* Support for writing frontmatter in JSON, TOML, or YAML ([@tech4him1](https://github.com/tech4him1) in [#933](https://github.com/decaporg/decap-cms/pull/933))
+* Add collection label next to search results ([@solpark](https://github.com/solpark) in [#1068](https://github.com/decaporg/decap-cms/pull/1068))
+* Support custom delimiters for frontmatter ([@Swieckowski](https://github.com/Swieckowski) in [#1064](https://github.com/decaporg/decap-cms/pull/1064))
+
+
+## 1.1.0 (January 25, 2018) ([demo](https://1-1-0--cms-demo.netlify.com/))
+
+* Fix metadata handling for all children of a list field ([@Quicksaver](https://github.com/Quicksaver) in [#719](https://github.com/decaporg/decap-cms/pull/719))
+* Allow registry of external backends ([@talves](https://github.com/talves) in [#1011](https://github.com/decaporg/decap-cms/pull/1011))
+
+
+## 1.0.4 (January 23, 2018) ([demo](https://1-0-4--cms-demo.netlify.com/))
+
+* Fix markdown widget re-rendering after load ([@erquhart](https://github.com/erquhart) in [#955](https://github.com/decaporg/decap-cms/pull/955))
+* Fix image form not displaying when added as first item in markdown widget ([@Dammmien](https://github.com/Dammmien) in [#926](https://github.com/decaporg/decap-cms/pull/926))
+* Add collapse all/expand all functionality to List widget ([@drlogout](https://github.com/drlogout) in [#912](https://github.com/decaporg/decap-cms/pull/912))
+* Add expand/collapse functionality to object widget ([@drlogout](https://github.com/drlogout) in [#927](https://github.com/decaporg/decap-cms/pull/927))
+* Fix vertically centered icon positioning in Firefox ([@jimmaaay](https://github.com/jimmaaay) in [#976](https://github.com/decaporg/decap-cms/pull/976))
+* Fix new uploads not showing in media library ([@tech4him1](https://github.com/tech4him1) in [#925](https://github.com/decaporg/decap-cms/pull/925))
+* Overhaul widgets section in docs ([@hcavalieri](https://github.com/hcavalieri) in [#866](https://github.com/decaporg/decap-cms/pull/866))
+* Use proper formatting when writing JSON files ([@tech4him1](https://github.com/tech4him1) in [#979](https://github.com/decaporg/decap-cms/pull/979))
+* Ensure temporary storage is available before attempting to write ([@vencax](https://github.com/vencax) in [#550](https://github.com/decaporg/decap-cms/pull/550))
+* Show SVG preview images in the media library ([@Jinksi](https://github.com/Jinksi) in [#954](https://github.com/decaporg/decap-cms/pull/954))
+* Fix failed PR force-merge showing success message ([@tech4him1](https://github.com/tech4him1) in [#1016](https://github.com/decaporg/decap-cms/pull/1016))
+* Fix false proptype warning for collection view ([@Quicksaver](https://github.com/Quicksaver) in [#998](https://github.com/decaporg/decap-cms/pull/998))
+
+
+## 1.0.3 (December 19, 2017) ([demo](https://1-0-3--cms-demo.netlify.com/))
+
+* Fix select widgets with object type options ([@tech4him1](https://github.com/tech4him1) in [#920](https://github.com/decaporg/decap-cms/pull/920))
+* Warn when uploading asset with same name as existing asset ([@Dammmien](https://github.com/Dammmien) in [#853](https://github.com/decaporg/decap-cms/pull/853))
+* Fix Slate plugins broken during 0.30 migration ([@Dammmien](https://github.com/Dammmien) in [#856](https://github.com/decaporg/decap-cms/pull/856))
+* Fix infinite scrolling for collections with integrations ([@erquhart](https://github.com/erquhart) in [#940](https://github.com/decaporg/decap-cms/pull/940))
+
+
+## 1.0.2 (December 7, 2017) ([demo](https://1-0-2--cms-demo.netlify.com/))
+
+* Fix position of editor view controls ([@biilmann](https://github.com/biilmann) in [#886](https://github.com/decaporg/decap-cms/pull/886))
+* Update docs intro to direct to new content ([@verythorough](https://github.com/verythorough) in [#891](https://github.com/decaporg/decap-cms/pull/891))
+
+
+## 1.0.1 (December 7, 2017) ([demo](https://1-0-1--cms-demo.netlify.com/))
+
+* Add configuration options doc ([@verythorough](https://github.com/verythorough) in [#885](https://github.com/decaporg/decap-cms/pull/885))
+* Add new docs website landing page ([@ziburski](https://github.com/ziburski) in [#880](https://github.com/decaporg/decap-cms/pull/880))
+* Rework Test Drive and Quick Start docs ([@verythorough](https://github.com/verythorough) in [#888](https://github.com/decaporg/decap-cms/pull/888))
+
+
+## 1.0.0 (December 7, 2017) ([demo](https://1-0-0--cms-demo.netlify.com/))
+
+The first major release of Netlify CMS!! Here are the big features:
+
+### All New UI 💫
+The CMS UI has been completely redesigned from the ground up!
+
+* All new visuals and reprised UX throughout
+* List view/grid view option for collections
+* Deletion now works for editorial workflow
+* Control publishing and editorial workflow status from the entry editor
+* Descriptions can now be added for each collection
+
+## All New Docs 💥
+The docs at netlifycms.org have been rewritten and vastly improved!
+
+* Full references with code samples for every configuration option, collection type, and widget
+* Easier docs contributions with the website built directly in the repo
+* Updated intro docs with a new Gatsby starter template in addition to the Hugo one
+
+## Changes
+
+* Fix backspace not removing empty block in markdown editor ([@Dammmien](https://github.com/Dammmien) in [#854](https://github.com/decaporg/decap-cms/pull/854))
+* Add select widget documentation ([@ackushiw](https://github.com/ackushiw) in [#806](https://github.com/decaporg/decap-cms/pull/806))
+* Migrate netlifycms.org source into this repo ([@verythorough](https://github.com/verythorough) in [#860](https://github.com/decaporg/decap-cms/pull/860))
+* Fix Slate mark rendering ([@erquhart](https://github.com/erquhart) in [#858](https://github.com/decaporg/decap-cms/pull/858))
+* Do not infer file format if format specified in config ([@tech4him1](https://github.com/tech4him1) in [#795](https://github.com/decaporg/decap-cms/pull/795))
+* Infer format from extension for new entries ([@tech4him1](https://github.com/tech4him1) in [#796](https://github.com/decaporg/decap-cms/pull/796))
+* Throw on unsupported format ([@tech4him1](https://github.com/tech4him1) in [#831](https://github.com/decaporg/decap-cms/pull/831))
+* Update widget docs ([@verythorough](https://github.com/verythorough) in [#876](https://github.com/decaporg/decap-cms/pull/876))
+* Implement new UI, restructure/refactor project ([@erquhart](https://github.com/erquhart) and [@neutyp](https://github.com/neutyp) in [#785](https://github.com/decaporg/decap-cms/pull/785))
+
+
+## 0.7.6 (November 27, 2017) ([demo](https://0-7-6--cms-demo.netlify.com/))
+
+* Migrate to Slate 0.30.x ([@erquhart](https://github.com/erquhart) in [#826](https://github.com/decaporg/decap-cms/pull/826))
+* Fix empty image fields saving null or undefined ([@tech4him1](https://github.com/tech4him1) in [#829](https://github.com/decaporg/decap-cms/pull/829))
+* Add JSON as manually supported format ([@tech4him1](https://github.com/tech4him1) in [#830](https://github.com/decaporg/decap-cms/pull/830))
+* Enable webpack scope hoisting ([@tech4him1](https://github.com/tech4him1) in [#840](https://github.com/decaporg/decap-cms/pull/840))
+* Update bundled version of gotrue-js to latest ([@biilmann](https://github.com/biilmann) in [#837](https://github.com/decaporg/decap-cms/pull/837))
+* Add global error boundary ([@tech4him1](https://github.com/tech4him1) in [#847](https://github.com/decaporg/decap-cms/pull/847))
+* Fix datetime formatting, allow empty value ([@biilmann](https://github.com/biilmann) in [#842](https://github.com/decaporg/decap-cms/pull/842))
+
+### Docs
+
+* Update authentication doc to cover all backends ([@verythorough](https://github.com/verythorough) in [#751](https://github.com/decaporg/decap-cms/pull/751))
+* Add oauth-provider-go to custom-authentication.md ([@igk1972](https://github.com/igk1972) in [#845](https://github.com/decaporg/decap-cms/pull/845))
+
+
+## 0.7.5 (November 19, 2017) ([demo](https://0-7-5--cms-demo.netlify.com/))
+
+* Add private media support for asset integrations ([@erquhart](https://github.com/erquhart) in [#834](https://github.com/decaporg/decap-cms/pull/834))
+
+
+## 0.7.4 (November 15, 2017) ([demo](https://0-7-4--cms-demo.netlify.com/))
+
+* Remove trailing slash from directory listing path ([@biilmann](https://github.com/biilmann) in [#817](https://github.com/decaporg/decap-cms/pull/817))
+* Fix images with non-lowercase extensions not being treated as images ([@erquhart](https://github.com/erquhart) in [#816](https://github.com/decaporg/decap-cms/pull/816))
+* Prompt before closing window with unsaved changes in the editor ([@benaiah](https://github.com/benaiah) in [#815](https://github.com/decaporg/decap-cms/pull/815))
+
+
+## 0.7.3 (November 11, 2017) ([demo](https://0-7-3--cms-demo.netlify.com/))
+
+* Fix persisting files with no body/data files ([@ebello](https://github.com/ebello) in [#808](https://github.com/decaporg/decap-cms/pull/808))
+* Fix ControlHOC ref for redux container widgets ([@erquhart](https://github.com/erquhart) in [#812](https://github.com/decaporg/decap-cms/pull/812))
+* Fix entries not saving due to null integrations state ([@erquhart](https://github.com/erquhart) in [#814](https://github.com/decaporg/decap-cms/pull/814))
+* Fix requestAnimationFrame warnings in tests ([@tech4him1](https://github.com/tech4him1) in [#811](https://github.com/decaporg/decap-cms/pull/811))
+
+
+## 0.7.2 (November 11, 2017) ([demo](https://0-7-2--cms-demo.netlify.com/))
+
+* Only rebase editorial workflow pull requests if assets are stored in content repo ([@erquhart](https://github.com/erquhart) in [#804](https://github.com/decaporg/decap-cms/pull/804))
+* Fix Netlify Identity widget logout method being called after signup redirect ([@tech4him1](https://github.com/tech4him1) in [#805](https://github.com/decaporg/decap-cms/pull/805))
+
+
+## 0.7.1 (November 11, 2017) ([demo](https://0-7-1--cms-demo.netlify.com/))
+
+* Enable sourcemaps ([@erquhart](https://github.com/erquhart) in [#803](https://github.com/decaporg/decap-cms/pull/803))
+* Add unselected option to select widget when no default is set ([@benaiah](https://github.com/benaiah) in [#673](https://github.com/decaporg/decap-cms/pull/673))
+* Fix image not shown after upload for Git Gateway ([@erquhart](https://github.com/erquhart) in [#790](https://github.com/decaporg/decap-cms/pull/790))
+* Fix empty media folder loading error ([@erquhart](https://github.com/erquhart) in [#791](https://github.com/decaporg/decap-cms/pull/791))
+* Fix error for non-markdown files in editorial workflow ([@tech4him1](https://github.com/tech4him1) in [#794](https://github.com/decaporg/decap-cms/pull/794))
+* Fix login when accept_roles is set ([@tech4him1](https://github.com/tech4him1) in [#801](https://github.com/decaporg/decap-cms/pull/801))
+* Add error boundary to editor preview iframe ([@erquhart](https://github.com/erquhart) in [#779](https://github.com/decaporg/decap-cms/pull/779))
+
+
+## 0.7.0 (November 9, 2017) ([demo](https://0-7-0--cms-demo.netlify.com/))
+
+### Media Library UI
+The CMS now features a media library UI for browsing, adding, and removing media from your content
+repo! The library shows assets in from the directory set as `media_library` in the CMS config. The
+media library is fully backwards compatible for existing CMS installations.
+
+### All Changes
+* Add config option to disable deletion for a collection ([@rpullinger](https://github.com/rpullinger) in [#707](https://github.com/decaporg/decap-cms/pull/707))
+* Fix TOML files not being saved with the correct extension ([@tech4him1](https://github.com/tech4him1) in [#757](https://github.com/decaporg/decap-cms/pull/757))
+* Clean up file formatters ([@tech4him1](https://github.com/tech4him1) in [#759](https://github.com/decaporg/decap-cms/pull/759))
+* Add scroll sync toggle to editor ([@Jinksi](https://github.com/Jinksi) in [#693](https://github.com/decaporg/decap-cms/pull/693))
+* Disable login button while login is in progress ([@tech4him1](https://github.com/tech4him1) in [#741](https://github.com/decaporg/decap-cms/pull/741))
+* Improve markdown editor active style indicator accuracy ([@pjsier](https://github.com/pjsier) in [#774](https://github.com/decaporg/decap-cms/pull/774))
+* Add media library UI ([@erquhart](https://github.com/erquhart) in [#554](https://github.com/decaporg/decap-cms/pull/554))
+* Fix transparent background on list widget ([@Jinksi](https://github.com/Jinksi) in [#768](https://github.com/decaporg/decap-cms/pull/768))
