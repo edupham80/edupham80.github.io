@@ -18,6 +18,7 @@ date: 2025-04-24 10:00:00 +0700
 
 - Tại trang github.com 
 Nhấn tạo repository mới
+
 ![Tạo repository mới](/assets/img/post/github-desktop-new-repository-20.png)
 
 - Tại Repository name

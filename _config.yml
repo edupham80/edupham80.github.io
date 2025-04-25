@@ -21,7 +21,7 @@ author: Edu Pham
 
 navbar-links:
   About Me: "aboutme"
-  Blog: "Gacha"
+  Blog: "tags/#github"
   Resources:
     - Beautiful Jekyll: "#"
     - Learn markdown: "#"
