@@ -14,7 +14,7 @@ const list_keywords = [
     'sondt32', 'thaivm2', 'thangvd9', 'thanhht49', 'thuydt89', 'thuyvt66',
     'trungnt173', 'tuannda3', 'huynh2', 'minhtht', 'hoadv21', 'ngocnv34',
     'ngandt35', 'hienlv12', 'lapnv6', 'trungdq25', 'duongnt88', 'truongvv17',
-    'hieunc19', 'nhungnh44', 'chinhpd5', 'trungnd87', 'linhtq25'
+    'hieunc19', 'nhungnh44', 'chinhpd5', 'trungnd87', 'linhtq25', 'dungvtt2'
 ];
 
 // Mảng chứa mã môn học và số giờ dạy
