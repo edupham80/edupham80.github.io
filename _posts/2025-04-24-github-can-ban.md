@@ -8,7 +8,7 @@ share-img:
 tags: [github, tutor]
 author: Edu Pham
 categories: [Base Skill]
-date: 2025-04-25 10:00:00 +0700
+date: 2025-04-24 10:00:00 +0700
 ---
 
 # Cách sử dụng Github
@@ -18,7 +18,7 @@ date: 2025-04-25 10:00:00 +0700
 
 - Tại trang github.com 
 Nhấn tạo repository mới
-![Tạo repository mới](github-desktop-new-repository-20.png)
+![Tạo repository mới](/assets/img/post/github-desktop-new-repository-20.png)
 
 - Tại Repository name
 Nhập tên dự án
@@ -34,8 +34,8 @@ Nên đánh dấu vào Add a README file, đây là file mô tả chung về to�
 Chọn Unity để bỏ qua các file thư viện unity khi đồng bộ
 
 - Nhấn Create repository
-![Tạo repository mới](github-desktop-new-repository-21.png)
-![Tạo repository mới](github-desktop-new-repository-22.png)
+![Tạo repository mới](/assets/img/post/github-desktop-new-repository-21.png)
+![Tạo repository mới](/assets/img/post/github-desktop-new-repository-22.png)
 
 
 
