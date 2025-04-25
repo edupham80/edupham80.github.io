@@ -1,18 +1,16 @@
+---
+layout: post
+title: Cách sử dụng Github
+subtitle: Chưa hoàn thành
+cover-img: 
+thumbnail-img: 
+share-img: 
+tags: [github, tutor]
+author: Edu Pham
+---
+
 # Cách sử dụng Github
 ## Hiểu căn bản về GitHub
-### Tiêu đề cấp 3
-
-**Chữ in đậm**  
-*Chữ nghiêng*  
-~~Chữ gạch ngang~~
-
-- Danh sách không thứ tự
-1. Danh sách có thứ tự
-
-[Liên kết](https://example.com)
-
-`Đoạn mã ngắn`
-
 
 ## Tạo Repo mới cách 1
 
@@ -36,3 +34,22 @@ Chọn Unity để bỏ qua các file thư viện unity khi đồng bộ
 - Nhấn Create repository
 ![Tạo repository mới](github-desktop-new-repository-21.png)
 ![Tạo repository mới](github-desktop-new-repository-22.png)
+
+
+
+
+
+---------------
+### Tiêu đề cấp 3
+
+**Chữ in đậm**  
+*Chữ nghiêng*  
+~~Chữ gạch ngang~~
+
+- Danh sách không thứ tự
+1. Danh sách có thứ tự
+
+[Liên kết](https://example.com)
+
+`Đoạn mã ngắn`
+
