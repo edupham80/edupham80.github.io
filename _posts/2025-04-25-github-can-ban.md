@@ -7,6 +7,7 @@ thumbnail-img:
 share-img: 
 tags: [github, tutor]
 author: Edu Pham
+categories: [Base Skill]
 ---
 
 # Cách sử dụng Github
