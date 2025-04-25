@@ -1,15 +1,13 @@
-//Code trả về danh sách có cấu trúc mỗi dòng gồm mssv[tab]số điện thoại
+//Code trả về danh sách có cấu trúc mỗi dòng gồm 
+--mssv___email[tab]số điện thoại
 //Mở trang chủ ap https://gv.poly.edu.vn/admin, bật F12 vào tab Console dán code vào
 //Điền danh sách sinh viên tương ứng vào đây
 
 var list_msv = [
-    'PH22708',
-    'PH37235',
-    'PH58577',
-    'PH58953'
+    'PH33964',
+    'PH39058',
+    'PH41515'
 ];
-
-
 
 
 
@@ -35,9 +33,11 @@ const timer = ms => new Promise(res => setTimeout(res, ms));
 			    row.forEach((el)=>{
 			        // console.log(el.innerText);
 			        if(el.innerText == 'Mã sinh viên'){
-			            row_2 += "" +  el.nextElementSibling.firstElementChild.value;
+			            row_2 += "--" +  el.nextElementSibling.firstElementChild.value;
 			        }
-			        
+			        if(el.innerText == 'Email'){
+			            row_2 += "___" +  el.nextElementSibling.firstElementChild.value;
+			        }
 
 			        if(el.innerText == 'Số điện thoại'){
 			            row_2 += "	" +  el.nextElementSibling.firstElementChild.value;
@@ -55,7 +55,7 @@ const timer = ms => new Promise(res => setTimeout(res, ms));
 
 
 			console.log(list_phone);
-			await timer(10000); 
+			await timer(3000); 
 
 		});
 
